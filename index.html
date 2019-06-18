@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Noter</title>
+        <!-- Add mobile awareness -->
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1" />
+        <!-- Load Less CSS -->
+        <link rel="stylesheet/less" type="text/css" href="style.less" />
+        <script src="less.min.js" ></script>
+        <!-- Connect the JS -->
+        <script src="functionality.js"></script>
+
+    </head>
+    <body>
+        <div id="header">
+            <div id="name">Noter</div>
+            <div id="menubutton"><a id="menulink" href="#">MENU</a></div>
+            <div class="clear"></div>
+        </div>
+        <div id="container">
+            <textarea id="area" rows="10" cols="50"></textarea>
+            <div id="controls">
+                <p><a href="javascript:save();" class="button">Save</a>
+                    <a href="javascript:clear();" class="button">Clear</a></p>
+            </div>
+        </div>
+        <div class="footer">
+            <p>Copyright (c) Survansix</p>
+        </div>
+    </body>
+</html>

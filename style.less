@@ -1,0 +1,155 @@
+/*
+    ROOT VARS
+*/
+@col_dark: #325772;
+@col_light: #a2c8e5;
+@col_white: #d8deec;
+/*
+    HEADER
+*/
+#header {
+    background: @col_dark;
+    color: white;
+    font: arial;
+    font-size: 16px;
+    padding: 16px;
+}
+#header > #name {
+    font-family: Arial, Sans-serif;
+    display: inline-block;
+}
+#menu a, #menubutton a {
+    text-decoration: none;
+    color: white;
+    text-transform: uppercase;
+    font-family: Arial, Sans-serif;
+    font-size: 13px;
+}
+.clear {
+    clear: both;
+}
+/* 
+    BODY
+*/
+body {
+    margin: 0px;
+}
+/*
+    TEXT FIELD 
+*/
+#container {
+    margin: 20px 20px 20px 20px;
+}
+#area {
+    width: 100%;
+    height: 100%;
+    font: 1em arial;
+    color: rgba(50, 82, 50, 1.0);
+}
+#area:focus {
+    color: rgba(50, 82, 50, 1.0);
+    border: 2px solid @col_light;
+    box-shadow: 0px 1px 1px #888888;
+}
+/*
+    SAVE/CLEAR BUTTONS
+*/
+#controls {
+    margin-left: 10px;
+}
+a.button {
+    width: 15%;
+    display: inline-block;
+    background: @col_dark;
+    /*
+    background: -webkit-linear-gradient(top, #a9db80, #96c56f);
+    background: -moz-linear-gradient(top, #a9db80, #96c56f);
+    background: -ms-linear-gradient(top, #a9db80, #96c56f);
+    background: -o-linear-gradient(top, #a9db80, #96c56f);
+    background: linear-gradient(to bottom, #a9db80, #96c56f);
+    */
+    border-radius: 8px;
+    border: 1px solid #444444;
+    /*
+    box-shadow: 0px 1px 1px #888888 inset, 1px 1px 3px #222222;
+    */
+    color: @col_light;
+    text-decoration: none;
+    text-align: center;
+    padding: 16px 32px 16px 32px;
+    /*
+    text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.4);
+    */
+    font-family: arial;
+}
+a.button:hover {
+    background: @col_light;
+    color: white;
+}
+a.button:active {
+    background: @col_white;
+}
+/*
+    FOOTER
+*/
+.footer {
+    width: 100%;
+    background-color: @col_dark;
+    height: 32px;
+    position: fixed;
+    bottom: 0px;
+}
+.footer > p {
+    margin: 8px;
+    color: white;
+    font: 14px arial;
+    text-align: center;
+}
+
+/*
+    CONFIGURABLE SIZE
+    Configure alternative layouts depending on the screen/display size, using media queries.
+    Note: 'only' causes older browsers to ignore the media query.
+*/
+@media only screen and (min-width: 600px) {
+    #menu {
+        float: right;
+        display: inline-block;
+    }
+    .menuitem {
+        display: inline;
+    }
+    .menuitem + .menuitem {
+        border-left: 1px solid white;
+        margin-left: 8px;
+        padding-left: 8px;
+    }
+    #menubutton {
+        display: none;
+    }
+}
+@media only screen and (max-width: 599px) {
+    #menubutton {
+        display: inline;
+        float: right;
+    }
+    #menu {
+        position: absolute;
+        top: 48px;
+        right: 0px;
+        background: #325232;
+        padding: 16px;
+    }
+    .shownmenu {
+        display: block;
+    }
+    .hiddenmenu {
+        display: none;
+    }
+    .menuitem {
+        display: block;
+    }
+    .menuitem + .menuitem {
+        margin-top: 8px;
+    }
+}

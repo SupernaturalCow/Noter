@@ -22,11 +22,12 @@
             <!-- Text field -->
             <div id="textbox" contenteditable="true">
                 <script>
-                    // Hacky solution for now! Doesn't work right.
-                    var self = document.getElementById('textbox');
-                    self.addEventListener( 'keypress', function() {
-                        self.innerHTML = marked(self.textContent);
-                    });
+                    // On keypress, save textContent to localStorage.
+                    with (document.getElementById('textbox')) {
+                        addEventListener( 'keypress', function() {
+                            save();
+                        })
+                    }   
                 </script>
             </div>
 
@@ -36,6 +37,8 @@
                     <a href="javascript:save();" class="button">Save</a>
                     <a href="javascript:load();" class="button">Load</a>
                     <a href="javascript:load_data();" class="button">Load Data</a>
+                    <a href="javascript:apply_formatting();" class="button">Apply Formatting</a>
+                    <a href="javascript:clear_formatting();" class="button">Clear Formatting</a>
                     <a href="javascript:clear();" class="button">Clear</a>
                 </p>
             </div>

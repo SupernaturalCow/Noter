@@ -9,19 +9,35 @@
         <script src="less.min.js" ></script>
         <!-- Connect the JS -->
         <script src="functionality.js"></script>
+        <!-- Markdown -->
+        <script src="marked.js"></script>
 
     </head>
     <body>
         <div id="header">
             <div id="name">Noter</div>
-            <div id="menubutton"><a id="menulink" href="#">MENU</a></div>
-            <div class="clear"></div>
         </div>
         <div id="container">
-            <textarea id="area" rows="10" cols="50"></textarea>
+
+            <!-- Text field -->
+            <div id="textbox" contenteditable="true">
+                <script>
+                    // Hacky solution for now! Doesn't work right.
+                    var self = document.getElementById('textbox');
+                    self.addEventListener( 'keypress', function() {
+                        self.innerHTML = marked(self.textContent);
+                    });
+                </script>
+            </div>
+
+            <!-- Buttons -->
             <div id="controls">
-                <p><a href="javascript:save();" class="button">Save</a>
-                    <a href="javascript:clear();" class="button">Clear</a></p>
+                <p>
+                    <a href="javascript:save();" class="button">Save</a>
+                    <a href="javascript:load();" class="button">Load</a>
+                    <a href="javascript:load_data();" class="button">Load Data</a>
+                    <a href="javascript:clear();" class="button">Clear</a>
+                </p>
             </div>
         </div>
         <div class="footer">

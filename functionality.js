@@ -1,4 +1,9 @@
 
+// Load saved text on startup.
+window.onload = function() {
+    load();
+}
+
 // Check the browser supports web storage.
 function check_web_storage_support() {
     if(typeof(Storage) !== "undefined") {
@@ -11,22 +16,22 @@ function check_web_storage_support() {
 }
 
 // Load the saved note.
-function display_saved_note() {
+function load() {
     if(check_web_storage_support() == true) {
         result = localStorage.getItem('note');
     }
     if(result === null) {
         result = "No note saved";
     }
-    document.getElementById('area').value = result;
+    document.getElementById('textbox').innerHTML = result;
 }
 
 // Save the current text field as a note.
 function save() {
     if(check_web_storage_support() == true) {
-        var area = document.getElementById("area");
-        if(area.value != '') {
-            localStorage.setItem("note", area.value);
+        var textbox = document.getElementById("textbox");
+        if(textbox.innerHTML != '') {
+            localStorage.setItem("note", textbox.innerHTML);
         }
         else {
             alert("Nothing to save");
@@ -36,5 +41,13 @@ function save() {
 
 // Clear the current text field.
 function clear() {
-    document.getElementById('area').value = "";
+    document.getElementById('textbox').innerHTML = "";
 }
+
+// Load data from file.
+function load_data() {
+	fetch("data/notes.txt")  // Object promise.
+	.then( response => response.text() )  // Object response.
+	.then( data => document.getElementById('textbox').innerHTML = marked(data));
+}
+//*/

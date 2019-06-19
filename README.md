@@ -1,11 +1,9 @@
 # Noter
-A little repo to chronicle my casual expedition toward a better, nay, the BEST note-taking app. No, I haven't heard of APP_THAT_EXISTS, and nope, I don't want to sign up to PRE-EXISTING_SERVICE. For this bad boy, we're building from the ground up - and you ain't gonna stop me.
+> A little repo to chronicle my casual expedition toward a better, nay, the BEST note-taking app. No, I haven't heard of APP_THAT_EXISTS, and nope, I don't want to sign up to PRE-EXISTING_SERVICE. For this bad boy, we're building from the ground up - and you ain't gonna stop me.
 
 ## Dev log ~
-1. First things first, I'll be following [this][1] guide for establishing an MVP.
-[1]: http://eqdn.tech/html5-note-app-tutorial/
-2. Following that, I want to format my textarea with markdown, so will use [marked][2] for that.
-[2]: https://github.com/markedjs/marked
-3. Of course, textarea can't be formatted. Because i'm impatient and want to see something cool **now**, I'll be using the *contenteditable* attribute. I found [this][3] to be a great read though, and very eye-opening, so I'll be looking at creating a custom editor in the future.
-[3]: https://medium.com/content-uneditable/contenteditable-the-good-the-bad-and-the-ugly-261a38555e9c
-4. 
+1. First things first, I'll be following [this](http://eqdn.tech/html5-note-app-tutorial/) guide for slapping together a rough MVP.
+2. Following that, I want to format my textarea with markdown, so will use [marked](https://github.com/markedjs/marked) for that.
+3. Of course, textarea can't be formatted. Because i'm impatient and want to see something cool **now**, I'll be using the _contenteditable_ attribute. I found [this cautionary-tale on contenteditable](https://medium.com/content-uneditable/contenteditable-the-good-the-bad-and-the-ugly-261a38555e9c) to be a great read though, and very eye-opening, so I'll be looking at creating a custom editor in the future.
+3. At this point, I've got a nice little textbox, a scrollbar, and a few buttons for converting markdown to HTML. The raw markdown text gets saved before converting, to allow us to revert back. Currently, you have to be in markdown-mode in order to add content, and HTML-mode is only for viewing it as a pretty output. I'm too lazy for that, so this has to change.
+4. Marked is great and all, but it doesn't let you convert _back_ to Markdown from HTML. On another [review of the market of markdown converters](http://bfy.tw/OAau) (__there's a lot__), I decided to give [Showdown](https://github.com/showdownjs/showdown) a crack. 

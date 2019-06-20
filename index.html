@@ -9,8 +9,8 @@
         <script src="less.min.js" ></script>
         <!-- Connect the JS -->
         <script src="functionality.js"></script>
-        <!-- Markdown -->
-        <script src="marked.js"></script>
+        <!-- Showdown -->
+        <script src="showdown.js"></script>
 
     </head>
     <body>
@@ -20,17 +20,7 @@
         <div id="container">
 
             <!-- Text field -->
-            <div id="textbox" contenteditable="true">
-                <script>
-                    // On keyup, save textContent to localStorage.
-                    with (document.getElementById('textbox')) {
-                        addEventListener( 'keyup', function() {
-                            save();
-
-                        })
-                    }   
-                </script>
-            </div>
+            <div id="textbox" contenteditable="true"></div>
 
             <!-- Buttons -->
             <div id="controls">
@@ -38,14 +28,15 @@
                     <a href="javascript:save();" class="button">Save</a>
                     <a href="javascript:load();" class="button">Load</a>
                     <a href="javascript:load_data();" class="button">Load Data</a>
-                    <a href="javascript:apply_formatting();" class="button">Apply Formatting</a>
-                    <a href="javascript:reset_text_to_markdown();" class="button">Clear Formatting</a>
+                    <a href="javascript:convert_html();" class="button">View as HTML</a>
+                    <a href="javascript:convert_markdown();" class="button">View as Markdown</a>
                     <a href="javascript:clear();" class="button">Clear</a>
+                    <a href="javascript:localStorage.clear();" class="button">Clear Storage</a>
                 </p>
             </div>
         </div>
         <div class="footer">
-            <p>Copyright (c) Survansix</p>
+            <p title="Always Build Cool Things">ABC Things</p>
         </div>
     </body>
 </html>

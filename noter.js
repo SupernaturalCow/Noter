@@ -1,12 +1,12 @@
-
 // Window loading event.
 window.onload = function() {
 
     // Load text.
+    TEXTBOX = document.getElementById('textbox');
     load();
 
     // On keyup, save textContent to localStorage.
-    with (document.getElementById('textbox')) {
+    with (TEXTBOX) {
         addEventListener( 'keyup', function() {
             save();
         });
@@ -27,7 +27,7 @@ function check_web_storage_support() {
 // Save the current text field as a note.
 function save() {
     if(check_web_storage_support() == true) {
-        with (document.getElementById("textbox")) {
+        with (TEXTBOX) {
             if (innerHTML != '') {
                 localStorage.setItem("note", innerHTML);  // Save as markdown only.
             }
@@ -37,62 +37,66 @@ function save() {
 
 // Load the saved note.
 function load() {
-    document.getElementById('textbox').innerHTML = localStorage.getItem("note");
+    TEXTBOX.innerHTML = localStorage.getItem("note");
 }
 
 // Clear the current text field.
 function clear() {
-    document.getElementById('textbox').innerHTML = "";
+    TEXTBOX.innerHTML = "";
 }
 
 // Load data from file.
 function load_data() {
     // Object promise.
-	fetch("data/notes.txt") 
+    fetch("data/notes.txt") 
         // Object response.
-	   .then(function(response) {
+       .then(function(response) {
             return response.text();
        })
        // Object value.
        .then(function(text) {
-            document.getElementById('textbox').innerHTML = text;
+            TEXTBOX.innerHTML = text;
        });
 
-    var _result = document.getElementById('textbox').innerHTML;
+    var _result = TEXTBOX.innerHTML;
     console.log("loaded note: "+_result);
 }
 
 // Convert text to HTML formatting.
 function convert_html() {
-	with (document.getElementById('textbox')) {
-        var _converter = new showdown.Converter(),
-		innerHTML = _converter.makeHtml(innerHTML);
-        console.log("converted to HTML: "+innerHTML);
-	}
+    with (TEXTBOX) {
+        var _converter = new showdown.Converter();
+        innerHTML = _converter.makeHtml(innerHTML);
+        console.log("Converted to HTML: \n"+innerHTML);
+    }
 }
 
 // Convert text to Markdown formatting.
 function convert_markdown() {
-    with (document.getElementById('textbox')) {
-        var _converter = new showdown.Converter(),
-            _html_text = _converter.makeMarkdown(innerHTML);
-        innerHTML = _html_text;
-        console.log("converted to MD: "+innerHTML);
+    with (TEXTBOX) {
+        var _converter = new showdown.Converter();
+        innerHTML = _converter.makeMarkdown(innerHTML);
+        console.log("Converted to MD: \n"+innerHTML);
     }
 }
 
-/*
+// Log HTML to console.
+function log_html() {
+    console.log(TEXTBOX.innerHTML);
+}
 
-// Clear formatting.
-function clear_formatting() {
-    with (document.getElementById('textbox')) {
-        //innerHTML = textContent; // This can be better.
-        innerHTML = innerHTML.replace(/<div>/g, "NNN");
-        innerHTML = innerHTML.replace(/<br>/g, "NNN");
-        innerHTML = innerHTML.replace(/\n/g, "NNN");
+// Clear HTML.
+function clear_html() {
+    //innerHTML = textContent; // This doesn't include new lines.
+    // Alternative:
+    with (TEXTBOX) {
+        innerHTML = innerHTML.replace(/<br>/g, "__NEWLINE__");
+        innerHTML = innerHTML.replace(/<\/div>/g, "__NEWLINE__");
+        innerHTML = innerHTML.replace(/\n/g, "");
         innerHTML = innerHTML.replace(/<\/?[^>]+(>|$)/g, "");
-        innerHTML = innerHTML.replace(/NNN/g, "\n");  // Eh, faster to do this.
+        innerHTML = innerHTML.replace(/__NEWLINE__/g, "<br /> ");
     }
+    console.log("Cleared HTML: \n"+TEXTBOX.innerHTML);
 }
 
 //*/

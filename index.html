@@ -14,26 +14,50 @@
 
     </head>
     <body>
+        <script type="text/javascript">
+            function insertTextAtCursor(text) { 
+                var sel, range, html; 
+                sel = window.getSelection();
+                range = sel.getRangeAt(0); 
+                range.deleteContents(); 
+                var textNode = document.createTextNode(text);
+                range.insertNode(textNode);
+                range.setStartAfter(textNode);
+                sel.removeAllRanges();
+                sel.addRange(range);        
+            }
+            function keyHandle(evt) {
+                key = evt.keyCode;
+                switch(key) {
+                    case 9: //Tab
+                        insertTextAtCursor('\t');
+                        evt.preventDefault();
+                        break
+                    case 13: //Enter
+                        insertTextAtCursor('\n');
+                        evt.preventDefault();
+                        break
+                }
+            }
+        </script>
         <div id="header">
             <div id="name">Noter</div>
         </div>
         <div id="container">
 
-            <!-- Text field -->
-            <div id="textbox" contenteditable="true"></div>
+            <div id="textbox">
+                <!-- Markdown textbox -->
+                <pre id="markdown" contenteditable="true" onKeyDown="keyHandle(event)" onKeyUp="save_text()"></pre>
 
+                <!-- HTML textbox -->
+                <div id="html" contenteditable="true" onKeyDown="keyHandle(event)" onKeyUp="save_text()"></div>
+            </div>
+            
             <!-- Buttons -->
             <div id="controls">
                 <p>
-                    <a href="javascript:save();" class="button">Save</a>
-                    <a href="javascript:load();" class="button">Load</a>
-                    <a href="javascript:load_data();" class="button">Load Data</a>
-                    <a href="javascript:convert_html();" class="button">View as HTML</a>
-                    <a href="javascript:convert_markdown();" class="button">View as Markdown</a>
-                    <a href="javascript:clear();" class="button">Clear</a>
-                    <a href="javascript:localStorage.clear();" class="button">Clear Storage</a>
-                    <a href="javascript:log_html();" class="button">Log HTML</a>
-                    <a href="javascript:clear_html();" class="button">Clear HTML</a>
+                    <a href="javascript:convert_html();" class="button" id="btn_html">View as HTML</a>
+                    <a href="javascript:convert_markdown();" class="button" id="btn_markdown">View as Markdown</a>
                 </p>
             </div>
         </div>

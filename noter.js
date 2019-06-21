@@ -2,15 +2,13 @@
 window.onload = function() {
 
     // Load text.
-    TEXTBOX = document.getElementById('textbox');
-    load();
-
-    // On keyup, save textContent to localStorage.
-    with (TEXTBOX) {
-        addEventListener( 'keyup', function() {
-            save();
-        });
-    } 
+    HTML = document.getElementById('html');
+    MARKDOWN = document.getElementById('markdown');
+    TEXT_MODE = MARKDOWN;
+    load_text();
+    convert_html();
+    console.clear();
+    log_text();
 }
 
 // Check the browser supports web storage.
@@ -25,9 +23,9 @@ function check_web_storage_support() {
 }
 
 // Save the current text field as a note.
-function save() {
+function save_text() {
     if(check_web_storage_support() == true) {
-        with (TEXTBOX) {
+        with (TEXT_MODE) {
             if (innerHTML != '') {
                 localStorage.setItem("note", innerHTML);  // Save as markdown only.
             }
@@ -36,13 +34,10 @@ function save() {
 }
 
 // Load the saved note.
-function load() {
-    TEXTBOX.innerHTML = localStorage.getItem("note");
-}
-
-// Clear the current text field.
-function clear() {
-    TEXTBOX.innerHTML = "";
+function load_text() {
+    var _result = localStorage.getItem("note");
+    if (_result == null) _result = "# Welcome to Noter.\n_Try clicking __'View as Markdown'.___";
+    TEXT_MODE.innerHTML = _result;
 }
 
 // Load data from file.
@@ -55,48 +50,63 @@ function load_data() {
        })
        // Object value.
        .then(function(text) {
-            TEXTBOX.innerHTML = text;
+            TEXT_MODE.innerHTML = text;
        });
+}
 
-    var _result = TEXTBOX.innerHTML;
-    console.log("loaded note: "+_result);
+// Apply colour to the active TEXT_MODE button.
+function apply_active_style() {
+    switch (TEXT_MODE) {
+        case MARKDOWN:
+            document.getElementById('btn_html').style.color = "";
+            document.getElementById('btn_html').style.backgroundColor = "";
+            document.getElementById('btn_markdown').style.color = "#d8deec";
+            document.getElementById('btn_markdown').style.backgroundColor = "#ff9955";
+            break;
+
+        case HTML:
+            document.getElementById('btn_markdown').style.color = "";
+            document.getElementById('btn_markdown').style.backgroundColor = "";
+            document.getElementById('btn_html').style.color = "#d8deec";
+            document.getElementById('btn_html').style.backgroundColor = "#ff9955";
+            break;
+    }
 }
 
 // Convert text to HTML formatting.
 function convert_html() {
-    with (TEXTBOX) {
-        var _converter = new showdown.Converter();
-        innerHTML = _converter.makeHtml(innerHTML);
-        console.log("Converted to HTML: \n"+innerHTML);
-    }
+    if (TEXT_MODE == HTML) return;
+    var _converter = new showdown.Converter();
+    HTML.innerHTML = _converter.makeHtml(MARKDOWN.innerHTML);
+    MARKDOWN.innerHTML = "";
+    TEXT_MODE = HTML;
+    apply_active_style();
+    log_text();
 }
 
 // Convert text to Markdown formatting.
 function convert_markdown() {
-    with (TEXTBOX) {
-        var _converter = new showdown.Converter();
-        innerHTML = _converter.makeMarkdown(innerHTML);
-        console.log("Converted to MD: \n"+innerHTML);
-    }
+    if (TEXT_MODE == MARKDOWN) return;
+    var _converter = new showdown.Converter();
+    MARKDOWN.innerHTML = _converter.makeMarkdown(HTML.innerHTML);
+    HTML.innerHTML = "";
+    TEXT_MODE = MARKDOWN;
+    apply_active_style();
+    log_text();
 }
 
-// Log HTML to console.
-function log_html() {
-    console.log(TEXTBOX.innerHTML);
-}
-
-// Clear HTML.
-function clear_html() {
-    //innerHTML = textContent; // This doesn't include new lines.
-    // Alternative:
-    with (TEXTBOX) {
-        innerHTML = innerHTML.replace(/<br>/g, "__NEWLINE__");
-        innerHTML = innerHTML.replace(/<\/div>/g, "__NEWLINE__");
-        innerHTML = innerHTML.replace(/\n/g, "");
-        innerHTML = innerHTML.replace(/<\/?[^>]+(>|$)/g, "");
-        innerHTML = innerHTML.replace(/__NEWLINE__/g, "<br /> ");
+// Log text to console.
+function log_text() {
+    var _str;
+    switch (TEXT_MODE) {
+        case MARKDOWN:
+            _str = "Markdown: \n";
+            break;
+        case HTML:
+            _str = "HTML: \n";
+            break;
     }
-    console.log("Cleared HTML: \n"+TEXTBOX.innerHTML);
+    console.log(_str+TEXT_MODE.innerHTML);
 }
 
 //*/

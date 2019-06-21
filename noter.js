@@ -43,13 +43,14 @@ function load_text() {
 // Load data from file.
 function load_data() {
     // Object promise.
-    fetch("data/notes.txt") 
+    fetch("README.md") 
         // Object response.
        .then(function(response) {
             return response.text();
        })
        // Object value.
        .then(function(text) {
+            convert_markdown();  // Load text from file in Markdown.
             TEXT_MODE.innerHTML = text;
        });
 }
